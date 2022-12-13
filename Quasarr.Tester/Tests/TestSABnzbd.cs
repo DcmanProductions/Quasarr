@@ -1,13 +1,15 @@
-﻿namespace Quasarr.Tester.Tests;
+﻿using Quasarr.SABnzbd.Collections;
+
+namespace Quasarr.Tester.Tests;
 
 internal class TestSABnzbd : TestBase
 {
     public TestSABnzbd() : base("SABnzbd",
         new() {
             {
-                "",
+                "Poll",
                 new(() => {
-                    return false;
+                    return DownloadQueue.Poll() != null;
                 })
             }
         })
