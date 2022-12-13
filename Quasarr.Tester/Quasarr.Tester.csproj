@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Quasarr.SABnzbd\Quasarr.SABnzbd.csproj" />
+  </ItemGroup>
+
 </Project>
