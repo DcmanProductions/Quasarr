@@ -1,9 +1,11 @@
-﻿namespace Quasarr.Tester;
+﻿using Quasarr.Tester.Tests;
+
+namespace Quasarr.Tester;
 
 internal class Program
 {
     static void Main()
     {
-        Console.WriteLine("Hello, World!");
+        new TestSABnzbd().Start().Wait();
     }
 }
