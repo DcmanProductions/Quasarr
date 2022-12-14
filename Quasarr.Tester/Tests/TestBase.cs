@@ -14,7 +14,7 @@ internal class TestBase
     }
     public Task<TestResult> Start() => Task.Run(() =>
         {
-            Console.WriteLine($"-- {_name}");
+            Console.WriteLine($"\n-- {_name}");
             List<string> completed = new(), failed = new();
             foreach ((string name, Func<bool> component) in _com)
             {
@@ -31,13 +31,13 @@ internal class TestBase
                 {
                     completed.Add(name);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write($"[OK] {name}");
+                    Console.WriteLine($"[OK] {name}");
                 }
                 else
                 {
                     failed.Add(name);
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($"[FAIL] {name}");
+                    Console.WriteLine($"[FAIL] {name}");
                 }
                 Console.ResetColor();
             }
