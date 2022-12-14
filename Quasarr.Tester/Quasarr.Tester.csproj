@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Quasarr.Networking\Quasarr.Networking.csproj" />
     <ProjectReference Include="..\Quasarr.SABnzbd\Quasarr.SABnzbd.csproj" />
   </ItemGroup>
 
