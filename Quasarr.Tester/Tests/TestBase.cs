@@ -23,12 +23,22 @@ internal class TestBase
                 bool success = false;
                 try
                 {
+                    Console.CursorLeft = 0;
+                    Console.Write($"[-] {name}");
                     success = component.Invoke();
+                    Console.CursorLeft = 0;
                 }
                 catch
                 {
                     success = false;
                 }
+                Console.CursorLeft = 0;
+                for (int i = 0; i < Console.WindowWidth; i++)
+                {
+                    Console.Write(' ');
+                }
+                Console.CursorLeft = 0;
+
                 if (success)
                 {
                     completed.Add(name);

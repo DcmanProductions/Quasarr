@@ -14,10 +14,19 @@ namespace Quasarr.Tester.Tests
                 {
                     try
                     {
-                        SeriesCollection series = SeriesCollection.Poll();
+                        SeriesCollection series = SeriesCollection.Poll((s, e) =>
+                        {
+                            //Console.CursorLeft = 0;
+                            //for (int i = 0; i < Console.WindowWidth; i++)
+                            //{
+                            //    Console.Write(' ');
+                            //}
+                            Console.CursorLeft = 0;
+                            Console.Write($"[-] Poll - {e.Percentage:p2}");
+                        });
                         return true;
                     }
-                    catch(Exception ex)
+                    catch
                     {
                         return false;
                     }
