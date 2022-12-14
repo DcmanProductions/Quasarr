@@ -4,9 +4,9 @@ using Quasarr.SABnzbd.Models;
 
 namespace Quasarr.SABnzbd.Collections;
 
-public sealed class DownloadQueue
+public sealed class DownloadQueueCollection
 {
-    private DownloadQueue(string status, bool isPaused, long bytesPerSecond, long totalSize, long bytesRemaining, double speedLimit, TimeSpan timeLeft, DownloadItem[] downloads)
+    private DownloadQueueCollection(string status, bool isPaused, long bytesPerSecond, long totalSize, long bytesRemaining, double speedLimit, TimeSpan timeLeft, DownloadItemModel[] downloads)
     {
         Status = status;
         IsPaused = isPaused;
@@ -20,14 +20,14 @@ public sealed class DownloadQueue
 
     public long BytesPerSecond { get; }
     public long BytesRemaining { get; }
-    public DownloadItem[] Downloads { get; }
+    public DownloadItemModel[] Downloads { get; }
     public bool IsPaused { get; }
     public double SpeedLimit { get; }
     public string Status { get; }
     public TimeSpan TimeLeft { get; }
     public long TotalSize { get; }
 
-    public static DownloadQueue? Poll()
+    public static DownloadQueueCollection? Poll()
     {
         if (!string.IsNullOrWhiteSpace(Config.Instance.API) && !string.IsNullOrWhiteSpace(Config.Instance.Host))
         {
@@ -43,7 +43,7 @@ public sealed class DownloadQueue
                 long bytesRemaining = (long)(Convert.ToDouble(json["mbleft"]?.ToObject<string>() ?? "1") / 1024 / 1024);
                 double speedLimit = Convert.ToDouble(json["speedlimit_abs"]?.ToObject<string>() ?? "0");
                 TimeSpan timeLeft = json["timeleft"]?.ToObject<TimeSpan>() ?? TimeSpan.Zero;
-                List<DownloadItem> downloads = new();
+                List<DownloadItemModel> downloads = new();
 
                 if (json["slots"] != null)
                 {

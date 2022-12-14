@@ -6,11 +6,13 @@ namespace Quasarr.Tester.Tests;
 internal class TestSABnzbd : TestBase
 {
     public TestSABnzbd() : base("SABnzbd",
-        new() {
+        new()
+        {
             {
                 "Poll",
-                new(() => {
-                    return DownloadQueue.Poll() != null;
+                new(() =>
+                {
+                    return DownloadQueueCollection.Poll() != null;
                 })
             }
         })

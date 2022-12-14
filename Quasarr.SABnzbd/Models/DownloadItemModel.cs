@@ -1,9 +1,9 @@
 ﻿// LFInteractive LLC. - All Rights Reserved
 namespace Quasarr.SABnzbd.Models;
 
-public readonly struct DownloadItem
+public readonly struct DownloadItemModel
 {
-    internal DownloadItem(int index, string status, string filename, string category, TimeSpan timeLeft, double percentage, long totalSize, long bytesRemaining)
+    internal DownloadItemModel(int index, string status, string filename, string category, TimeSpan timeLeft, double percentage, long totalSize, long bytesRemaining)
     {
         Index = index;
         Status = status;
