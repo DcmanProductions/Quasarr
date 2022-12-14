@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// LFInteractive LLC. - All Rights Reserved
+using Microsoft.AspNetCore.Mvc;
 
 namespace Quasarr.API.Controllers.API
 {
@@ -6,8 +7,6 @@ namespace Quasarr.API.Controllers.API
     [Route("/api/template")]
     public class TemplateAPIController : ControllerBase
     {
-        #region Public Methods
-
         [HttpGet()]
         public IActionResult Index()
         {
@@ -17,7 +16,5 @@ namespace Quasarr.API.Controllers.API
                 time = DateTime.Now.ToString("MM/dd/yyyy - HH:mm:ss.fff")
             });
         }
-
-        #endregion Public Methods
     }
 }

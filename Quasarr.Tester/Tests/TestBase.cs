@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿// LFInteractive LLC. - All Rights Reserved
 
 namespace Quasarr.Tester.Tests;
 
@@ -7,11 +7,13 @@ internal class TestBase
     public record TestResult(string name, string[]? success, string[]? failed);
     private readonly Dictionary<string, Func<bool>> _com;
     private readonly string _name;
+
     public TestBase(string name, Dictionary<string, Func<bool>> Components)
     {
         _com = Components;
         _name = name;
     }
+
     public Task<TestResult> Start() => Task.Run(() =>
         {
             Console.WriteLine($"\n-- {_name}");

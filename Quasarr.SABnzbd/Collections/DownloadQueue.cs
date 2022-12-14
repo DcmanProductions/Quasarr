@@ -1,19 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// LFInteractive LLC. - All Rights Reserved
+using Newtonsoft.Json.Linq;
 using Quasarr.SABnzbd.Models;
 
 namespace Quasarr.SABnzbd.Collections;
 
 public sealed class DownloadQueue
 {
-    public string Status { get; }
-    public bool IsPaused { get; }
-    public long BytesPerSecond { get; }
-    public double SpeedLimit { get; }
-    public TimeSpan TimeLeft { get; }
-    public long TotalSize { get; }
-    public long BytesRemaining { get; }
-    public DownloadItem[] Downloads { get; }
-
     private DownloadQueue(string status, bool isPaused, long bytesPerSecond, long totalSize, long bytesRemaining, double speedLimit, TimeSpan timeLeft, DownloadItem[] downloads)
     {
         Status = status;
@@ -25,6 +17,15 @@ public sealed class DownloadQueue
         TotalSize = totalSize;
         BytesRemaining = bytesRemaining;
     }
+
+    public long BytesPerSecond { get; }
+    public long BytesRemaining { get; }
+    public DownloadItem[] Downloads { get; }
+    public bool IsPaused { get; }
+    public double SpeedLimit { get; }
+    public string Status { get; }
+    public TimeSpan TimeLeft { get; }
+    public long TotalSize { get; }
 
     public static DownloadQueue? Poll()
     {

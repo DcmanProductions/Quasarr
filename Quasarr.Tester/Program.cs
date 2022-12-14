@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using Quasarr.Networking.Utilities;
+﻿// LFInteractive LLC. - All Rights Reserved
 using Quasarr.Tester.Tests;
-using System.Net;
 
 namespace Quasarr.Tester;
 
 internal class Program
 {
-    static void Main()
+    private static void Main()
     {
         Console.WriteLine("Initializing Tests...");
         new TestSABnzbd().Start().Wait();

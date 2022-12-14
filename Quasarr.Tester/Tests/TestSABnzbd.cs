@@ -1,4 +1,5 @@
-﻿using Quasarr.SABnzbd.Collections;
+﻿// LFInteractive LLC. - All Rights Reserved
+using Quasarr.SABnzbd.Collections;
 
 namespace Quasarr.Tester.Tests;
 

@@ -1,4 +1,5 @@
-﻿using Mono.Nat;
+﻿// LFInteractive LLC. - All Rights Reserved
+using Mono.Nat;
 using System.Net;
 using System.Net.NetworkInformation;
 
@@ -12,7 +13,6 @@ public class PortManager
 
     private PortManager()
     {
-
         try
         {
             NatUtility.StartDiscovery(new[] { NatProtocol.Upnp });
@@ -27,7 +27,6 @@ public class PortManager
             {
                 throw new WebException("Router either isn't found or doesn't support UPNP nor PMP");
             }
-
         }
         NatUtility.DeviceFound += (s, e) =>
         {
@@ -37,25 +36,13 @@ public class PortManager
         while (_device == null) { Task.Delay(100).Wait(); }
     }
 
-    public static Task<Mapping[]> GetAllMappings() => Instance._device.GetAllMappingsAsync();
-
-    public static async Task<Mapping[]> OpenPort(int port) => new Mapping[]
-    {
-        await Instance._device.CreatePortMapAsync(new Mapping(Protocol.Udp, port, port)),
-        await Instance._device.CreatePortMapAsync(new Mapping(Protocol.Tcp, port, port))
-    };
-
     public static async Task<Mapping[]> ClosePort(int port) => new Mapping[]
     {
         await Instance._device.DeletePortMapAsync(new Mapping(Protocol.Udp, port, port)),
         await Instance._device.DeletePortMapAsync(new Mapping(Protocol.Tcp, port, port))
     };
 
-    public static async Task<bool> IsPortOpen(int port)
-    {
-        Mapping[] mappings = await GetAllMappings();
-        return mappings.Any(i => i.PrivatePort == port);
-    }
+    public static Task<Mapping[]> GetAllMappings() => Instance._device.GetAllMappingsAsync();
 
     public static IPAddress? GetLocalIPAddress()
     {
@@ -82,9 +69,19 @@ public class PortManager
                     }
                 }
             }
-
         }
         return null;
     }
 
+    public static async Task<bool> IsPortOpen(int port)
+    {
+        Mapping[] mappings = await GetAllMappings();
+        return mappings.Any(i => i.PrivatePort == port);
+    }
+
+    public static async Task<Mapping[]> OpenPort(int port) => new Mapping[]
+            {
+        await Instance._device.CreatePortMapAsync(new Mapping(Protocol.Udp, port, port)),
+        await Instance._device.CreatePortMapAsync(new Mapping(Protocol.Tcp, port, port))
+    };
 }

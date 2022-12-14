@@ -1,15 +1,8 @@
-﻿namespace Quasarr.SABnzbd.Models;
+﻿// LFInteractive LLC. - All Rights Reserved
+namespace Quasarr.SABnzbd.Models;
 
 public readonly struct DownloadItem
 {
-    public int Index { get; }
-    public string Status { get; }
-    public string FileName { get; }
-    public string Category { get; }
-    public TimeSpan Timeleft { get; }
-    public double Percentage { get; }
-    public long TotalSize { get; }
-    public long BytesRemaining { get; }
     internal DownloadItem(int index, string status, string filename, string category, TimeSpan timeLeft, double percentage, long totalSize, long bytesRemaining)
     {
         Index = index;
@@ -21,4 +14,13 @@ public readonly struct DownloadItem
         TotalSize = totalSize;
         BytesRemaining = bytesRemaining;
     }
+
+    public long BytesRemaining { get; }
+    public string Category { get; }
+    public string FileName { get; }
+    public int Index { get; }
+    public double Percentage { get; }
+    public string Status { get; }
+    public TimeSpan Timeleft { get; }
+    public long TotalSize { get; }
 }

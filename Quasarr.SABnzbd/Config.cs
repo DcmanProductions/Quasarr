@@ -1,6 +1,7 @@
-﻿using Quasarr.Core;
-using Newtonsoft.Json.Linq;
+﻿// LFInteractive LLC. - All Rights Reserved
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Quasarr.Core;
 
 namespace Quasarr.SABnzbd;
 
@@ -8,10 +9,6 @@ public sealed class Config
 {
     public static Config Instance = new("sabnzbd");
     private readonly string _file;
-
-    public int Port { get; set; } = 8080;
-    public string Host { get; set; } = "127.0.0.1";
-    public string API { get; set; } = "";
 
     internal Config(string name)
     {
@@ -27,6 +24,22 @@ public sealed class Config
             Save();
         }
     }
+
+    public string API { get; set; } = "";
+    public string Host { get; set; } = "127.0.0.1";
+    public int Port { get; set; } = 8080;
+
+    public void Load()
+    {
+        using FileStream fs = new(_file, FileMode.Open, FileAccess.Read, FileShare.None);
+        using StreamReader reader = new(fs);
+
+        JObject json = JObject.Parse(reader.ReadToEnd());
+        Port = json["Port"]?.ToObject<int>() ?? Port;
+        Host = json["Host"]?.ToObject<string>() ?? Host;
+        API = json["API"]?.ToObject<string>() ?? API;
+    }
+
     public void Save()
     {
         using FileStream fs = new(_file, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
@@ -37,15 +50,5 @@ public sealed class Config
             Host,
             API,
         }, Formatting.Indented));
-    }
-    public void Load()
-    {
-        using FileStream fs = new(_file, FileMode.Open, FileAccess.Read, FileShare.None);
-        using StreamReader reader = new(fs);
-
-        JObject json = JObject.Parse(reader.ReadToEnd());
-        Port = json["Port"]?.ToObject<int>() ?? Port;
-        Host = json["Host"]?.ToObject<string>() ?? Host;
-        API = json["API"]?.ToObject<string>() ?? API;
     }
 }

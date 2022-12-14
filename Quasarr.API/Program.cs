@@ -1,14 +1,9 @@
+// LFInteractive LLC. - All Rights Reserved
 namespace Quasarr.API
 {
     public class Program
     {
-        #region Fields
-
         private static int port = 1234;
-
-        #endregion Fields
-
-        #region Private Methods
 
         private static void Main(string[] args)
         {
@@ -26,17 +21,12 @@ namespace Quasarr.API
                 }).Build().Run();
             }
         }
-
-        #endregion Private Methods
     }
 
     internal class Startup
     {
-        #region Public Methods
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,7 +52,5 @@ namespace Quasarr.API
                 action.EnableEndpointRouting = false;
             });
         }
-
-        #endregion Public Methods
     }
 }

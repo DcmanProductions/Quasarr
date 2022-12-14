@@ -1,4 +1,5 @@
-﻿using Quasarr.Networking.Utilities;
+﻿// LFInteractive LLC. - All Rights Reserved
+using Quasarr.Networking.Utilities;
 using System.Net;
 
 namespace Quasarr.Tester.Tests;
@@ -62,6 +63,5 @@ internal class TestNetworking : TestBase
         }
     })
     {
-
     }
 }
