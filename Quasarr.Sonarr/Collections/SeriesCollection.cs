@@ -1,5 +1,6 @@
 ﻿// LFInteractive LLC. - All Rights Reserved
 using Newtonsoft.Json.Linq;
+using Quasarr.Sonarr.Events;
 using Quasarr.Sonarr.Models;
 using Quasarr.Sonarr.Utilities;
 
@@ -16,15 +17,48 @@ public sealed class SeriesCollection
 
     public static SeriesCollection Poll()
     {
+        return Poll((s, e) => { });
+    }
+
+    public static SeriesCollection Poll(EventHandler<PollResultEventArgs> poll_update)
+    {
         List<SeriesModel> series = new();
+        poll_update.Invoke(null, new()
+        {
+            Current = 0,
+            Total = 0,
+            Percentage = 0,
+            Status = "Checking Config..."
+        });
+
         if (Connection.IsValidConfig())
         {
+            poll_update.Invoke(null, new()
+            {
+                Current = 0,
+                Total = 0,
+                Percentage = 0,
+                Status = "Polling Server..."
+            });
+
             using HttpResponseMessage response = Connection.MakeRequest("/series?includeSeasonImages=true");
             if (response.IsSuccessStatusCode)
             {
                 JArray json = JArray.Parse(response.Content.ReadAsStringAsync().Result);
+                int index = 0;
                 Parallel.ForEach(json, item =>
+                //foreach (var item in json)
                 {
+                    poll_update.Invoke(null, new()
+                    {
+                        Current = index,
+                        Total = json.Count,
+                        Percentage = index / (double)json.Count,
+                        Status = "Building..."
+                    });
+
+                    index++;
+
                     int seriesId = item["id"]?.ToObject<int>() ?? 0;
 
                     string bg = Connection.GetUrl($"/MediaCover/{seriesId}/fanart.jpg?apikey={Config.Instance.API}");
